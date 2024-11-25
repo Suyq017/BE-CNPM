@@ -52,11 +52,51 @@ const getAllPrinter = async (req, res) => {
 }
 
 const updatePrinter = async (req, res) => {
-    try {
-        
-    } catch (error) {
-        res.json({success: false,message: error.message});
-    }
-}
+    const { PrinterID, available } = req.body;
 
-export {addPrinter,getAvaiblePrinter,getAllPrinter,updatePrinter,deletePrinter};
+    try {
+        // Tìm và cập nhật giá trị available của máy in
+        const printer = await printerModel.findOneAndUpdate(
+            { PrinterID },
+            { available },
+            { new: true }
+        );
+
+        // Kiểm tra nếu máy in không tồn tại
+        if (!printer) {
+            return res.status(404).json({ message: "Máy in không tồn tại" });
+        }
+
+        // Trả về thông tin máy in đã cập nhật
+        res.status(200).json({ message: "Cập nhật thành công", printer });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Lỗi khi cập nhật máy in" });
+    }
+};
+
+const sendMaintenance = async (req, res) => {
+    const { PrinterID, performance } = req.body;
+
+    try {
+        // Tìm và cập nhật giá trị performance của máy in
+        const printer = await printerModel.findOneAndUpdate(
+            { PrinterID },
+            { performance },
+            { new: true }
+        );
+
+        // Kiểm tra nếu máy in không tồn tại
+        if (!printer) {
+            return res.status(404).json({ message: "Máy in không tồn tại" });
+        }
+
+        // Trả về thông tin máy in đã cập nhật
+        res.status(200).json({ message: "Cập nhật thành công", printer });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Lỗi khi cập nhật máy in" });
+    }
+};
+
+export {addPrinter,getAvaiblePrinter,getAllPrinter,updatePrinter,deletePrinter, sendMaintenance};

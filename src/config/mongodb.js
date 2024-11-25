@@ -6,7 +6,7 @@ const connectDB = async () =>{
         console.log('MongoDB Connected...');
     })
 
-    await mongoose.connect(`${process.env.MONGODB_URI}/StudentPrintServices`)
+    await mongoose.connect(`mongodb+srv://syuq:123@cluster0.nkqvt.mongodb.net/StudentPrintServices`)
 
 }
 export default connectDB;

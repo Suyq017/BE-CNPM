@@ -1,11 +1,12 @@
 import express from 'express';
-import {studentLogin,adminLogin,updateBalance,updataQuotas} from '../controllers/userController.js';
+import {studentLogin,adminLogin,updateBalance,updateQuotas, getBalance} from '../controllers/userController.js';
 
 const userRouter = express.Router();
 
-userRouter.post('/stutentlogin',studentLogin)
+userRouter.post('/studentlogin',studentLogin)
 userRouter.post('/adminlogin',adminLogin)
 userRouter.post('/updatebalance',updateBalance)
-userRouter.post('/updataquotas',updataQuotas)
+userRouter.post('/updatequotas',updateQuotas)
+userRouter.get('/getBalance',getBalance)
 
 export default userRouter;
